@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Single Div Basics</title>
+	<style type="text/css">
+		body{
+			margin: 0 2em 8em 2em;
+		}
+		h1, h2{
+			text-align: center;
+		}
+		pre{
+			border: 1px solid lightgray;
+			padding: 0.5em 1em;
+			display: inline-block;
+			margin-right: 1em;
+			margin-top: 0px;
+		}
+		.container{
+			width: 300px;
+			height: 300px;
+			position: relative;
+			background-color: lightyellow;
+			border: 1px solid lightgray;
+			display: inline-block;
+		}
+		.plain-div{
+			width: 100px;
+			height: 100px;
+			display: inline-block;
+			background-color: lightgray;
+		}
+		.before-after{
+			width: 100px;
+			height: 100px;
+			display: inline-block;
+			background-color: lightgray;
+			margin-bottom: 7em;
+		}
+		.before-after::before{
+			content: "::before";
+			width: 100px;
+			height: 100px;
+			display: inline-block;
+			background-color: palegreen;
+		}
+		.before-after::after{
+			content: "::after";
+			width: 100px;
+			height: 100px;
+			display: inline-block;
+			background-color: lightskyblue;
+		}
+		.before-after2{
+			width: 300px;
+			height: 100px;
+			display: inline-block;
+			background-color: lightgray;
+		}
+		.before-after2::before{
+			content: "::before";
+			width: 100px;
+			height: 100px;
+			display: inline-block;
+			background-color: palegreen;
+		}
+		.before-after2::after{
+			content: "::after";
+			width: 100px;
+			height: 100px;
+			display: inline-block;
+			background-color: lightskyblue;
+		}
+		.after-fix::after{
+			float: right;
+		}
+		.column{
+			margin-right: 2em;
+			display: inline-block;
+		}
+		.positioning1 {
+			width: 100px;
+			height: 100px;
+			display: inline-block;
+			background-color: lightgray;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+		}
+		.positioning2, .positioning3, .shapes1 {
+			width: 100px;
+			height: 100px;
+			display: inline-block;
+			background-color: lightgray;
+			position: absolute;
+			top: calc(50% - 50px);
+			left: calc(50% - 50px);
+		}
+		.positioning3::before{
+			content: "::before";
+			width: 100px;
+			height: 100px;
+			display: inline-block;
+			background-color: palegreen;
+			position: absolute;
+			left: 50%;
+			top: -50%;
+		}
+		.positioning3::after{
+			content: "::after";
+			width: 100px;
+			height: 100px;
+			display: inline-block;
+			background-color: lightskyblue;
+			position: absolute;
+			left: 75%;
+			top:  25%;
+		}
+		.shapes1::before{
+			content: "::before";
+			width: 100px;
+			height: 100px;
+			display: inline-block;
+			background-color: palegreen;
+			position: absolute;
+			left: -100%;
+			border-radius: 100%;
+		}
+		.shapes1::after{
+			content: "::after";
+			width: 0px;
+			height: 0px;
+			display: inline-block;
+			background-color: transparent;
+			position: absolute;
+			left: 100%;
+			border: 50px solid transparent;
+			border-right: 50px solid lightskyblue;
+			border-bottom: 50px solid lightskyblue;
+		}
+		.v-top{
+			vertical-align: top;
+		}
+		.shades1{
+			box-shadow: 0px 100px 0 -20px gray;
+		}
+		.shades1::before {
+			box-shadow: 0px 100px 0 -20px green;
+		}
+		.shades1::after {
+			box-shadow: 0px 100px 0 -20px blue;
+		}
+		.shades2{
+			box-shadow: 0px 100px 0 -20px gray,
+						0px 100px 0 -10px dimgray;
+		}
+		.shades2::before {
+			box-shadow: 0px 100px 0 -20px green,
+						0px 100px 0 -10px darkgreen;
+		}
+		.shades2::after {
+			box-shadow: 0px 100px 0 -20px blue,
+						0px 100px 0 -10px darkblue;
+		}
+		.block {
+			display: inline-block;
+		}
+		.drop-shade1 {
+			filter: drop-shadow(0px -100px 0 gray);
+		}
+		.drop-shade2::after {
+			filter: drop-shadow(0px 50px 0 burlywood);
+		}
+		.drop-shade3::after {
+			filter: drop-shadow(0px 50px 0 burlywood)
+					drop-shadow(-25px -50px 0 goldenrod)
+					drop-shadow(-75px 0px 0 orangered);
+		}
+		.drop-shade4::before {
+			filter: drop-shadow(0px 50px 0 burlywood);
+			box-shadow: 175px 0px 0 -20px green;
+		}
+		.triangles1 {
+			background-image: 	linear-gradient(to top right, transparent, transparent 70%, gray 70%),
+								linear-gradient(to bottom right, transparent, transparent 60%, black 60%),
+								linear-gradient(to top right, aliceblue, aliceblue 50%, transparent 50%);
+		}
+		.lines1{
+			background-image: 	linear-gradient(transparent, transparent 31%, black 31%, black 33%, transparent 33%, transparent 66%, red 66%, red 68%, transparent 68%), 
+								linear-gradient(to right, transparent, transparent 31%, green 31%, green 33%, transparent 33%, transparent 66%, blue 66%, blue 68%, transparent 68%);
+		}
+		.lines2{
+			background-image: repeating-linear-gradient(to bottom right, aliceblue, aliceblue 5%, transparent 5%, transparent 10%);
+		}
+	</style>
+</head>
+<body>
+	<h1>Single Div Basics</h1>
+	<h2>
+		Taken from original 
+		<a href="https://hacks.mozilla.org/2014/09/single-div-drawings-with-css/">Single Div Drawings with CSS</a>
+		and expanded with my tests & reusable code.
+	</h2>
+	<h3>Starting div:</h3>
+
+
+	<p>Lets have a div that we will want to use for our CSS experiments with this starting CSS:</p>
+<pre>CSS:
+
+width: 100px;
+height: 100px;
+display: inline-block;
+background-color: lightgray;</pre><pre>
+HTML:
+
+&lt;div&gt;the div&lt;/div&gt;
+
+
+
+</pre>
+	<p>The Result:</p>
+	<div class="plain-div">the div</div>
+	<h3>::before and ::after</h3>
+	<p>
+		now add ::before and ::after to previous CSS:<br/>
+		Both of them are <a href="https://www.w3schools.com/css/css_pseudo_elements.asp">pseudo elements</a> that we can use as extra divs.
+	</p>
+<pre>::before{
+	content: "::before";
+	width: 100px;
+	height: 100px;
+	display: inline-block;
+	background-color: palegreen;
+}</pre><pre>::after{
+	content: "::after";
+	width: 100px;
+	height: 100px;
+	display: inline-block;
+	background-color: lightskyblue;
+}</pre><pre>
+HTML:
+
+&lt;div&gt;the div&lt;/div&gt;
+
+
+
+
+</pre><p>The Result:</p>
+	<div class="before-after">the div</div>
+	<p>
+		What happened?<br/>
+		Our original div has 100px width and height. Then the div can contain some content, like "the div" text.<br/>
+		With "::before" and "::after" in our CSS, a browser will generate this HTML:<br/>
+		<img src="divbeforeafter.png" alt="generated html of a div with ::before and ::after"><br/>
+		Apparently, both of them are inside of our div, and our div is too small for all of them.<br/>
+		This is what happens if we change <b>width</b> to <b>300px;</b>
+	</p>
+	<div class="before-after2">the div</div>
+	<p>A little better, if we use empty div, then we will see:</p>
+	<div class="before-after2"></div>
+	<p>If we still want to see 3 squares next to each other in correct order, we can add <b>float: right;</b> to <b>::after</b> CSS or start thinking about other CSS position solutions:</p>
+	<div class="before-after2 after-fix">the div</div>
+	<p>Still we have a div with <i>"width: 300px;"</i> instead of planned <i>"width: 100px;"</i><br/>
+		To start drawing pictures with CSS Div(s), we will use parent element as our canvas.
+	</p>
+	<h3>Container Div as our canvas:</h3>
+<pre>.container{
+	width: 300px;
+	height: 300px;
+	position: relative;
+	background-color: lightyellow;
+	border: 1px solid lightgray;
+}</pre><pre>&lt;div class=&quot;container&quot;&gt;
+	&lt;div&gt;An unstyled div inside of container div&lt;/div&gt;
+&lt;/div&gt;
+
+
+
+
+</pre>
+	<div>
+		<div class="column">
+			<p>Result:</p>
+			<div class="container">
+				<div>An unstyled div inside of container div.</div>
+			</div>
+		</div>
+		<div class="column">
+			<p>We can add previous example into our container:</p>
+			<div class="container">
+				<div class="before-after2 after-fix">the div</div>
+			</div>
+		</div>
+	</div>
+	<p>Have you noticed the <b>position: relative;</b> in <i>.container?</i><br/>
+		We need that on parent element, so that we can position child elements with <i>position: absolute;</i> CSS.
+	</p>
+	<div>
+		<p>Let's put our original div into the center:</p>
+		<div class="column">
+			<pre>div {
+	width: 100px;
+	height: 100px;
+	display: inline-block;
+	background-color: lightgray;
+	position: absolute;
+	<b>top: 50%;
+	left: 50%;</b>
+}</pre><br/>
+			<div class="container">
+				<div class="positioning1">the div</div>
+			</div>
+		</div>
+		<div class="column">
+			<pre>div {
+	width: 100px;
+	height: 100px;
+	display: inline-block;
+	background-color: lightgray;
+	position: absolute;
+	<b>top: calc(50% - 50px);
+	left: calc(50% - 50px);</b>
+}</pre><br/>
+			<div class="container">
+				<div class="positioning2">the div</div>
+			</div>
+		</div>
+	</div>
+	<div class="column">
+		<p>
+			And now we can add ::before and ::after, and position them close to each other.
+		</p>
+		<pre>::before {
+	content: "::before";
+	width: 100px;
+	height: 100px;
+	display: inline-block;
+	background-color: palegreen;
+	position: absolute;
+	left: 50%;
+	top: -50%;
+}</pre><pre>::after {
+	content: "::after";
+	width: 100px;
+	height: 100px;
+	display: inline-block;
+	background-color: lightskyblue;
+	position: absolute;
+	left: 75%;
+	top:  25%;
+}</pre><br/>
+		<div class="container">
+			<div class="positioning3">the div</div><span>This is how you do 3 layers with single element:</span>
+		</div>
+	</div>
+	<h3>Shapes</h3>
+	<p>
+		Now that we understand pseudo-elements, their position and layering, we can continue with basic shapes:<br/>
+		<b>Squares</b>/Rectangles, <b>Circles</b>/Elipses and <b>Triangles</b>. Most of stuff you can create with combination of these shapes.
+	</p>
+	<div class="container">
+		<div class="shapes1">the div</div>
+	</div>  <pre class="v-top">::before {
+	content: "::before";
+	width: 100px;
+	height: 100px;
+	display: inline-block;
+	background-color: palegreen;
+	position: absolute;
+	left: -100%;
+	<b>border-radius: 100%;</b>
+}
+
+
+</pre><pre class="v-top">::after {
+	content: "::after";
+	width: <b>0px;</b>
+	height: <b>0px;</b>
+	display: inline-block;
+	background-color: <b>transparent;</b>
+	position: absolute;
+	left: 100%;
+	<b>border: 50px solid transparent;
+	border-right: 50px solid lightskyblue;
+	border-bottom: 50px solid lightskyblue;</b>
+}</pre>
+	<h3>Box Shadow</h3>
+	<p>
+		<b><a href="https://www.w3schools.com/cssref/css3_pr_box-shadow.asp">box-shadow</a></b> is a nice way to add more layers of same shape.<br/>
+		Syntax:<br/>
+		box-shadow: h-offset v-offset <i>blur</i> <i>spread</i> <i>color</i>
+	</p>
+	<p>
+		As an example, we will create smaller clones of previous shapes with using box-shadow property: 
+	</p>
+	<div class="container">
+		<div class="shapes1 shades1">the div</div>
+	</div>  <pre class="v-top">div {
+	width: 100px;
+	height: 100px;
+	display: inline-block;
+	background-color: lightgray;
+	position: absolute;
+	top: calc(50% - 50px);
+	left: calc(50% - 50px);
+	<b>box-shadow: 0px 100px 0 -20px gray;</b>
+}</pre><pre class="v-top">::before {
+	content: "::before";
+	width: 100px;
+	height: 100px;
+	display: inline-block;
+	background-color: palegreen;
+	position: absolute;
+	left: -100%;
+	border-radius: 100%;
+	<b>box-shadow: 0px 100px 0 -20px green;</b>
+}
+
+
+</pre><pre class="v-top">::after {
+	content: "::after";
+	width: 0px;
+	height: 0px;
+	display: inline-block;
+	background-color: transparent;
+	position: absolute;
+	left: 100%;
+	border: 50px solid transparent;
+	border-right: 50px solid lightskyblue;
+	border-bottom: 50px solid lightskyblue;
+	<b>box-shadow: 0px 100px 0 -20px blue;</b>
+}</pre>
+	<p><b>Finding!</b> Trianlges are not working with box-shadow!</p>
+	<p>On the other hand, we can have more shadows, thus more clones:</p>
+	<div class="container">
+		<div class="shapes1 shades2">the div</div>
+	</div>
+	<div class="block v-top">
+		<pre class="v-top">div {
+	box-shadow: 
+		0px 100px 0 -20px gray,
+		0px 100px 0 -10px dimgray;
+}</pre><br/><pre class="v-top">::before {
+	box-shadow: 
+		0px 100px 0 -20px green,
+		0px 100px 0 -10px darkgreen;
+}</pre><br/><pre class="v-top">::after {
+	box-shadow: 
+		0px 100px 0 -20px blue,
+		0px 100px 0 -10px darkblue;
+}</pre>
+	</div>
+	<p>
+		The size of box-shadow of the (pseudo) element is calculated as:<br/>
+		shadow width = width + left border + right border + spread<br/>
+		shadow height = height + top border + bottom border + spread
+	</p>
+	<h3>Drop Shadow</h3>
+	<p>One solution to our shadow problem with Triangle is 
+		<b><a href="https://www.w3schools.com/cssref/css3_pr_filter.asp">filter: drop-shadow(...);</a></b><br/>
+		Syntax:<br/>
+		filter: drop-shadow(horizontal-shadow vertical-shadow <i>blur color</i>);
+	</p>
+	<div class="container">
+		<div class="shapes1 drop-shade1">the div</div>
+	</div>
+	<div class="block v-top">
+		<pre>div {
+	filter: drop-shadow(0px -100px 0 gray);
+}</pre><br/><pre>::before {
+	filter: drop-shadow(0px 100px 0 goldenrod);
+}</pre><br/><br/>
+	</div>
+	<p>
+		A single drop-shadow is applied to all (pseudo) elements, so be carefull.<br/>
+		In next example we remove previous style and apply drop-shadow only for our triangle element:
+	</p>
+	<div class="container">
+		<div class="shapes1 drop-shade2">the div</div>
+	</div>
+	<div class="block v-top">
+		<pre>::after {
+	filter: drop-shadow(0px 50px 0 burlywood);
+}</pre>
+	</div>
+	<p>
+		This is what happends when we have more drop-shadow in filter:
+	</p>
+	<div class="container">
+		<div class="shapes1 drop-shade3">the div</div>
+	</div>
+	<div class="block v-top">
+		<pre>::after {
+	filter: drop-shadow(0px 50px 0 burlywood)
+		drop-shadow(-25px -50px 0 goldenrod)
+		drop-shadow(-75px 0px 0 orangered);
+}</pre>
+	</div>
+	<h3>Drop Shadow + Box Shadow</h3>
+	<p>
+		It is also important to know how these two work together, as both of them can create more clones (aka shadows) of our (pseudo) elements.<br/>
+		Box Shadow can be scaled up and down, and cannot be used with triangles.<br/>
+		Drop Shadow cannot be scalled, works with triangles (or any shape) and tries to apply on everything as much as possible.<br/>
+		Both of them add new layers bellow previous ones, so order matters. Let's try both of them on our circle element
+	</p>
+
+	<div class="container">
+		<div class="shapes1 drop-shade4">the div</div>
+	</div>
+	<div class="block v-top">
+		<pre>::before {
+	filter: drop-shadow(0px 50px 0 burlywood);
+	box-shadow: 175px 0px 0 -20px green;
+}</pre>
+	</div>
+	<p>
+		Filter drop-shadow is applied after box-shadow, and applied to everything (element + his box shadows).<br/>
+		Box Shadow will add +1 'shade', Drop Shadow will add +N 'shades'.
+	</p>
+	<h3>Gradients - Linear gradients</h3>
+	<p>If you don't have a clue about <a href="https://www.w3schools.com/css/css3_gradients.asp" target="_blank">CSS Gradients, please look here</a> before reading further.<br/>
+	This part is an extension to it, so quickly chech basics and come back.</p>
+	<div class="container">
+		<div class="positioning2">the div</div>
+	</div>
+	<div class="block v-top">
+		<pre>Back to our original div.
+It has these starting CSS:
+
+
+div {
+	width: 100px;
+	height: 100px;
+	display: inline-block;
+	background-color: lightgray;
+	position: absolute;
+	top: calc(50% - 50px);
+	left: calc(50% - 50px);
+}
+
+</pre>
+	</div>
+	<p>Let's make some basic triangles:</p>
+	<div class="container">
+		<div class="positioning2 triangles1">the div</div>
+	</div>
+	<div class="block v-top">
+		<pre>div {
+	background-image: 	
+		linear-gradient(to top right, transparent, transparent 70%, gray 70%),
+		linear-gradient(to bottom right, transparent, transparent 60%, black 60%),
+		linear-gradient(to top right, aliceblue, aliceblue 50%, transparent 50%);
+}
+
+The trick to have sharp edges is achieved by same % values for both colors</pre>
+	</div>
+	<p>
+		As you can see, the first triangle is on top, and every next one is under previous one. Same logic as with shadows.<br/>
+		Similarly, you can draw lines:
+	</p>
+	<div class="container">
+		<div class="positioning2 lines1">the div</div>
+	</div>
+	<div class="block v-top">
+		<pre>div {
+	background-image: 	
+		linear-gradient(
+			transparent, transparent 31%, black 31%, black 33%, transparent 33%, transparent 66%, red 66%, red 68%, transparent 68%
+		), 
+		linear-gradient(
+			to right, transparent, transparent 31%, green 31%, green 33%, transparent 33%, transparent 66%, blue 66%, blue 68%, transparent 68%
+		);
+}
+		</pre>
+	</div>
+	<p>
+		The problem is that you will always have line from one end to another.<br/>
+		Common solutions are placing an overlapping gradient before it, and having another element in front of it.<br/>
+		Another fancy thing that people do with line gradients are stripes.
+	</p>
+	<div class="container">
+		<div class="positioning2 lines2">the div</div>
+	</div>
+	<div class="block v-top">
+		<pre>div {
+	background-image: repeating-linear-gradient(to bottom right, aliceblue, aliceblue 5%, transparent 5%, transparent 10%);
+}
+		</pre>
+	<script type="text/javascript">
+	</script>
+</body>
+</html>
